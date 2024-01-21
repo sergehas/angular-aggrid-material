@@ -42,7 +42,7 @@ interface IRow {
     'img { width: auto; height: auto; } span {display: flex; height: 100%; justify-content: center; align-items: center} ',
   ],
 })
-export class MissionResultRenderer implements ICellRendererAngularComp {
+export class MissionResultComponent implements ICellRendererAngularComp {
   // Init Cell Value
   public value!: string;
   agInit(params: ICellRendererParams): void {
@@ -75,7 +75,7 @@ export class MissionResultRenderer implements ICellRendererAngularComp {
     'img {display: block; width: 25px; height: auto; maxHeight: 50%; margin-right: 12px; filter: brightness(1.1);} span {display: flex; height: 100%; width: 100%; align-items: center} p { text-overflow: ellipsis; overflow: hidden; white-space: nowrap }',
   ],
 })
-export class CompanyLogoRenderer implements ICellRendererAngularComp {
+export class CompanyLogoComponent implements ICellRendererAngularComp {
   // Init Cell Value
   public value!: string;
   agInit(params: ICellRendererParams): void {
@@ -90,7 +90,7 @@ export class CompanyLogoRenderer implements ICellRendererAngularComp {
 }
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-main',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
@@ -120,7 +120,7 @@ export class AppComponent implements OnInit {
     {
       field: 'company',
       width: 130,
-      cellRenderer: CompanyLogoRenderer,
+      cellRenderer: CompanyLogoComponent,
     },
     {
       field: 'location',
@@ -140,7 +140,7 @@ export class AppComponent implements OnInit {
     {
       field: 'successful',
       width: 120,
-      cellRenderer: MissionResultRenderer,
+      cellRenderer: MissionResultComponent,
     },
     { field: 'rocket' },
   ];
@@ -152,10 +152,11 @@ export class AppComponent implements OnInit {
   };
 
   // Load data into grid when ready
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   onGridReady(params: GridReadyEvent) {
+    console.log('grid ready: ', params);
     this.http
-      .get<any[]>(
+      .get<IRow[]>(
         'https://www.ag-grid.com/example-assets/space-mission-data.json'
       )
       .subscribe((data) => (this.rowData = data));
@@ -164,7 +165,7 @@ export class AppComponent implements OnInit {
   // Handle row selection changed event
   //  onSelectionChanged = (event: SelectionChangedEvent) => {
   onSelectionChanged = (event: SelectionChangedEvent) => {
-    console.log('Row Selected!');
+    console.log('Row Selected!', event);
   };
 
   // Handle cell editing event
@@ -173,5 +174,7 @@ export class AppComponent implements OnInit {
     console.log('New Cell Value:', event);
   };
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.debug("app comp init done");
+  }
 }
