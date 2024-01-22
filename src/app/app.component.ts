@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from "@angular/core";
+import { NgIf } from "@angular/common";
+import { HttpClient } from "@angular/common/http";
 
-import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { ICellRendererAngularComp } from "ag-grid-angular";
 import {
   CellValueChangedEvent,
   ColDef,
@@ -10,7 +10,7 @@ import {
   ICellRendererParams,
   SelectionChangedEvent,
   ValueFormatterParams,
-} from 'ag-grid-community';
+} from "ag-grid-community";
 
 // Row Data Interface
 interface IRow {
@@ -26,27 +26,27 @@ interface IRow {
 
 // Custom Cell Renderer Component
 @Component({
-  selector: 'app-mission-result-renderer',
+  selector: "app-mission-result-renderer",
   standalone: true,
   imports: [NgIf],
   template: `
-  <span *ngIf="value" >
-    <img
-      [alt]="value"
-      [src]="'https://www.ag-grid.com/example-assets/icons/' + value + '.png'"
-      [height]="30"
-    />
-  </span>
+    <span *ngIf="value">
+      <img
+        [alt]="value"
+        [src]="'https://www.ag-grid.com/example-assets/icons/' + value + '.png'"
+        [height]="30"
+      />
+    </span>
   `,
   styles: [
-    'img { width: auto; height: auto; } span {display: flex; height: 100%; justify-content: center; align-items: center} ',
+    "img { width: auto; height: auto; } span {display: flex; height: 100%; justify-content: center; align-items: center} ",
   ],
 })
 export class MissionResultComponent implements ICellRendererAngularComp {
   // Init Cell Value
   public value!: string;
   agInit(params: ICellRendererParams): void {
-    this.value = params.value ? 'tick-in-circle' : 'cross-in-circle';
+    this.value = params.value ? "tick-in-circle" : "cross-in-circle";
   }
 
   // Return Cell Value
@@ -58,21 +58,25 @@ export class MissionResultComponent implements ICellRendererAngularComp {
 
 // Custom Cell Renderer Component
 @Component({
-  selector: 'app-company-logo-renderer',
+  selector: "app-company-logo-renderer",
   standalone: true,
   imports: [NgIf],
   template: `
-  <span *ngIf="value" >
-    <img
-      [alt]="value"
-      [src]="'https://www.ag-grid.com/example-assets/space-company-logos/' + value.toLowerCase() + '.png'"
-      [height]="30"
-    />
-    <p>{{ value }}</p>
-  </span>
+    <span *ngIf="value">
+      <img
+        [alt]="value"
+        [src]="
+          'https://www.ag-grid.com/example-assets/space-company-logos/' +
+          value.toLowerCase() +
+          '.png'
+        "
+        [height]="30"
+      />
+      <p>{{ value }}</p>
+    </span>
   `,
   styles: [
-    'img {display: block; width: 25px; height: auto; maxHeight: 50%; margin-right: 12px; filter: brightness(1.1);} span {display: flex; height: 100%; width: 100%; align-items: center} p { text-overflow: ellipsis; overflow: hidden; white-space: nowrap }',
+    "img {display: block; width: 25px; height: auto; maxHeight: 50%; margin-right: 12px; filter: brightness(1.1);} span {display: flex; height: 100%; width: 100%; align-items: center} p { text-overflow: ellipsis; overflow: hidden; white-space: nowrap }",
   ],
 })
 export class CompanyLogoComponent implements ICellRendererAngularComp {
@@ -90,20 +94,20 @@ export class CompanyLogoComponent implements ICellRendererAngularComp {
 }
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: "app-main",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  themeClass = 'ag-theme-material';
+  themeClass = "ag-theme-material";
 
   // Return formatted date value
   dateFormatter(params: ValueFormatterParams) {
-    return new Date(params.value).toLocaleDateString('en-us', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
+    return new Date(params.value).toLocaleDateString("en-us", {
+      weekday: "long",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   }
 
@@ -113,36 +117,36 @@ export class AppComponent implements OnInit {
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef[] = [
     {
-      field: 'mission',
+      field: "mission",
       width: 150,
       checkboxSelection: true,
     },
     {
-      field: 'company',
+      field: "company",
       width: 130,
       cellRenderer: CompanyLogoComponent,
     },
     {
-      field: 'location',
+      field: "location",
       width: 225,
     },
     {
-      field: 'date',
+      field: "date",
       valueFormatter: this.dateFormatter,
     },
     {
-      field: 'price',
+      field: "price",
       width: 130,
       valueFormatter: (params) => {
-        return params.value.toLocaleString() + ' €';
+        return params.value.toLocaleString() + " €";
       },
     },
     {
-      field: 'successful',
+      field: "successful",
       width: 120,
       cellRenderer: MissionResultComponent,
     },
-    { field: 'rocket' },
+    { field: "rocket" },
   ];
 
   // Default Column Definitions: Apply configuration across all columns
@@ -152,26 +156,26 @@ export class AppComponent implements OnInit {
   };
 
   // Load data into grid when ready
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   onGridReady(params: GridReadyEvent) {
-    console.log('grid ready: ', params);
+    console.log("grid ready: ", params);
     this.http
-      .get<IRow[]>(
-        'https://www.ag-grid.com/example-assets/space-mission-data.json'
-      )
+      .get<
+        IRow[]
+      >("https://www.ag-grid.com/example-assets/space-mission-data.json")
       .subscribe((data) => (this.rowData = data));
   }
 
   // Handle row selection changed event
   //  onSelectionChanged = (event: SelectionChangedEvent) => {
   onSelectionChanged = (event: SelectionChangedEvent) => {
-    console.log('Row Selected!', event);
+    console.log("Row Selected!", event);
   };
 
   // Handle cell editing event
   //  onCellValueChanged = (event: CellValueChangedEvent) => {
   onCellValueChanged = (event: CellValueChangedEvent) => {
-    console.log('New Cell Value:', event);
+    console.log("New Cell Value:", event);
   };
 
   ngOnInit() {
