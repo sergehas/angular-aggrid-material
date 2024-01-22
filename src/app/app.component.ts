@@ -1,16 +1,14 @@
 import { Component, OnInit } from "@angular/core";
-import { NgIf } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
-
-import { ICellRendererAngularComp } from "ag-grid-angular";
 import {
   CellValueChangedEvent,
   ColDef,
   GridReadyEvent,
-  ICellRendererParams,
   SelectionChangedEvent,
   ValueFormatterParams,
 } from "ag-grid-community";
+import { MissionResultComponent } from "./grid/renderer/mission-result/mission-result.component";
+import { CompanyLogoComponent } from "./grid/renderer/company-logo/company-logo.component";
 
 // Row Data Interface
 interface IRow {
@@ -23,76 +21,6 @@ interface IRow {
   price: number;
   successful: boolean;
 }
-
-// Custom Cell Renderer Component
-@Component({
-  selector: "app-mission-result-renderer",
-  standalone: true,
-  imports: [NgIf],
-  template: `
-    <span *ngIf="value">
-      <img
-        [alt]="value"
-        [src]="'https://www.ag-grid.com/example-assets/icons/' + value + '.png'"
-        [height]="30"
-      />
-    </span>
-  `,
-  styles: [
-    "img { width: auto; height: auto; } span {display: flex; height: 100%; justify-content: center; align-items: center} ",
-  ],
-})
-export class MissionResultComponent implements ICellRendererAngularComp {
-  // Init Cell Value
-  public value!: string;
-  agInit(params: ICellRendererParams): void {
-    this.value = params.value ? "tick-in-circle" : "cross-in-circle";
-  }
-
-  // Return Cell Value
-  refresh(params: ICellRendererParams): boolean {
-    this.value = params.value;
-    return true;
-  }
-}
-
-// Custom Cell Renderer Component
-@Component({
-  selector: "app-company-logo-renderer",
-  standalone: true,
-  imports: [NgIf],
-  template: `
-    <span *ngIf="value">
-      <img
-        [alt]="value"
-        [src]="
-          'https://www.ag-grid.com/example-assets/space-company-logos/' +
-          value.toLowerCase() +
-          '.png'
-        "
-        [height]="30"
-      />
-      <p>{{ value }}</p>
-    </span>
-  `,
-  styles: [
-    "img {display: block; width: 25px; height: auto; maxHeight: 50%; margin-right: 12px; filter: brightness(1.1);} span {display: flex; height: 100%; width: 100%; align-items: center} p { text-overflow: ellipsis; overflow: hidden; white-space: nowrap }",
-  ],
-})
-export class CompanyLogoComponent implements ICellRendererAngularComp {
-  // Init Cell Value
-  public value!: string;
-  agInit(params: ICellRendererParams): void {
-    this.value = params.value;
-  }
-
-  // Return Cell Value
-  refresh(params: ICellRendererParams): boolean {
-    this.value = params.value;
-    return true;
-  }
-}
-
 @Component({
   selector: "app-main",
   templateUrl: "./app.component.html",
@@ -116,6 +44,10 @@ export class AppComponent implements OnInit {
 
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef[] = [
+    {
+      field: "select",
+      width: 150,
+    },
     {
       field: "mission",
       width: 150,

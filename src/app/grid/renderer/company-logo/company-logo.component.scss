@@ -1,0 +1,19 @@
+.company-logo {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  img {
+    display: block;
+    width: 25px;
+    height: auto;
+    max-height: 50%;
+    margin-right: 12px;
+    filter: brightness(1.1);
+  }
+  span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
