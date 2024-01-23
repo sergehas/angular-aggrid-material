@@ -1,8 +1,18 @@
 /* Add application styles & imports to this file! */
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+//@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~@angular/material/prebuilt-themes/purple-green.css";
+
 @import "ag-grid-community/styles/ag-grid.css";
 @import "ag-grid-community/styles/ag-theme-material.css";
 @import "ag-grid-community/styles/ag-theme-quartz.css";
+html {
+  --app-gap: 16px;
+}
+html,
 body {
+  height: 100%;
+}
+body {
+  margin: 0;
   font-family: Roboto, Arial, sans-serif;
 }

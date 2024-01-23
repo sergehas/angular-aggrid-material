@@ -1,25 +1,32 @@
-<h1>Test AG Grid + material</h1>
-<mat-form-field>
-  <mat-label>Choose theme</mat-label>
-  <mat-select [(ngModel)]="themeClass">
-    <mat-option value="ag-theme-material">material</mat-option>
-    <mat-option value="ag-theme-quartz">quartz</mat-option>
-  </mat-select>
-</mat-form-field>
-
-<div class="content">
-  <!-- The AG Grid component, with various Grid Option properties -->
-  <ag-grid-angular
-    style="width: 100%; height: 550px"
-    [class]="themeClass"
-    [rowData]="rowData"
-    [columnDefs]="colDefs"
-    [defaultColDef]="defaultColDef"
-    [pagination]="true"
-    [rowSelection]="'multiple'"
-    (gridReady)="onGridReady($event)"
-    (cellValueChanged)="onCellValueChanged($event)"
-    (selectionChanged)="onSelectionChanged($event)"
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
   >
-  </ag-grid-angular>
-</div>
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Link 1</a>
+      <a mat-list-item href="#">Link 2</a>
+      <a mat-list-item href="#">Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Test AG Grid + material</span>
+    </mat-toolbar>
+    <app-mission-list></app-mission-list>
+  </mat-sidenav-content>
+</mat-sidenav-container>

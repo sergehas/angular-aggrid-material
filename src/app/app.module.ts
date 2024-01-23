@@ -12,6 +12,12 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 
 import { AgGridModule } from "ag-grid-angular";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatButtonModule } from "@angular/material/button";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
+import { MissionListComponent } from "./components/mission-list/mission-list.component";
 
 @NgModule({
   imports: [
@@ -25,6 +31,12 @@ import { AgGridModule } from "ag-grid-angular";
     MatFormFieldModule,
     MatCheckboxModule,
     AgGridModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MissionListComponent,
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

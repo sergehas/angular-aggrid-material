@@ -1,0 +1,19 @@
+<mat-form-field #container>
+  <mat-label>Choose one</mat-label>
+  <mat-select [(ngModel)]="selectedValue" name="company">
+    <mat-option *ngFor="let comp of companies$ | async" [value]="comp"
+      ><div class="company-logo-item">
+        <img
+          [alt]="comp"
+          [src]="
+            'https://www.ag-grid.com/example-assets/space-company-logos/' +
+            comp.toLowerCase() +
+            '.png'
+          "
+          [height]="30"
+        />
+        <span>{{ comp }}</span>
+      </div>
+    </mat-option>
+  </mat-select>
+</mat-form-field>
