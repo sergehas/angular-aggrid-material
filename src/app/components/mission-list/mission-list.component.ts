@@ -16,11 +16,18 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { FormsModule } from "@angular/forms";
 import { Mission, MissionsService } from "src/app/services/missions.service";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   selector: "app-mission-list",
   standalone: true,
-  imports: [AgGridModule, MatFormFieldModule, MatSelectModule, FormsModule],
+  imports: [
+    AgGridModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    FormsModule,
+    MatButtonModule,
+  ],
   templateUrl: "./mission-list.component.html",
   styleUrls: ["./mission-list.component.scss"],
   encapsulation: ViewEncapsulation.None,

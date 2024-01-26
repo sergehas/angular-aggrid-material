@@ -1,11 +1,21 @@
-<mat-form-field>
-  <mat-label>Choose theme</mat-label>
-  <mat-select [(ngModel)]="themeClass">
-    <mat-option value="ag-theme-material">material</mat-option>
-    <mat-option value="ag-theme-quartz">quartz</mat-option>
-  </mat-select>
-</mat-form-field>
+<section>
+  <mat-form-field>
+    <mat-label>Choose AG Grid theme</mat-label>
+    <mat-select [(ngModel)]="themeClass">
+      <mat-option value="ag-theme-material">material</mat-option>
+      <mat-option value="ag-theme-quartz">quartz</mat-option>
+    </mat-select>
+  </mat-form-field>
 
+  <div class="theme-label">Angular Material Theme colors:</div>
+  <div class="theme-button-row">
+    <button mat-raised-button>Basic</button>
+    <button mat-raised-button color="primary">Primary</button>
+    <button mat-raised-button color="accent">Accent</button>
+    <button mat-raised-button color="warn">Warn</button>
+    <button mat-raised-button disabled>Disabled</button>
+  </div>
+</section>
 <div class="content">
   <!-- The AG Grid component, with various Grid Option properties -->
   <ag-grid-angular
